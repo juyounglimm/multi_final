@@ -7,12 +7,13 @@ import axios from 'axios';
 import './GroupApplylist.scss'
 
 function GroupApplylist(props) {
+    //본인의 신청현황
     const { m_name } = useParams();
 
     const[Groupapplydatas,setGroupapplydata]=useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [authstatus,setauthstatus]=useState();
+
 
 
   useEffect(()=>{
@@ -38,8 +39,7 @@ function GroupApplylist(props) {
           setError(e);
       }
       setLoading(false);
-    
-  
+      
 };
 fetchGroup();
 
@@ -60,22 +60,23 @@ if (!Groupapplydatas) return null;
                         <thead>
                             <tr>
                                 <th id="g_title">글제목</th>
-                                <th id="a_content">신청내용</th>
-                                <th>승인여부</th>
+                                <th id="a_contentapply">신청내용</th>
+                                <th id="a_auth">승인여부</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
                             {Groupapplydatas.map((Groupapplydata) => (
                             <tr key={Groupapplydata.a_gno}>
-                                <td id="a_name1">
+                                <td id="g_title">
+                                    {/* 원래 글로 연결되도록 */}
                                 <Link to={'/communityGroup/'+Groupapplydata.a_gno} style={{ textDecoration: 'none',color: 'black'}}>
                                     {Groupapplydata.g_title}</Link></td>
                              
-                                <td id="a_content1">
+                                <td id="a_contentapply">
                                     {Groupapplydata.a_content}
                                 </td>
-                               <td>
+                               <td id="a_auth">
                              {Groupapplydata.a_auth}
                                </td>
                             

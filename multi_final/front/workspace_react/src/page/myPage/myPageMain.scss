@@ -6,21 +6,21 @@
   display: flex;
   margin: 0 auto;
   overflow: hidden;
-  width: 1440px; // 2560(QHD), 1920(FHD), 1680, 1440
-  height: 1440px;
+  width: 1024px; // 2560(QHD), 1920(FHD), 1680, 1440
+  height: 800px;
   background-color: #f4f4f4;
 
-
- 
   #board {
     //작성 글과 댓글에만 해당
     background-color: white;
     margin: 0 auto;
     overflow: scroll;
-    width: 1080px; // 2560(QHD), 1920(FHD), 1680, 1440
-    height: 500px;
+    width: 900px; // 2560(QHD), 1920(FHD), 1680, 1440
+    height: 600px;
     margin-top: 50px;
+    margin-left: 15px;
     border-radius: 20px;
+    margin-right: 10px;
     .myPageLink {
       color: black;
       text-decoration: none;
@@ -28,30 +28,39 @@
     .myPageTabs {
       margin-top: 10px;
       margin-left: 20px;
-
     }
     .myPageTable {
-      width: 1000px;
+      width: 730px;
       margin-left: 20px;
     }
   }
 }
-#g_apply{
+#g_apply {
   display: flex;
   justify-content: center;
   font-weight: bold;
-  
 }
-#g_title{
-  max-width: 400px;
+#g_title {
+  overflow: hidden; // 영역 감추기
+  text-overflow: ellipsis; // ...로 만들기
+  white-space: nowrap; // 아래줄 내려가는 것 막기
+  max-width: 200px;
 }
-#g_title1{
+#a_auth {
+  max-width: 100px;
+}
+#a_contentapply {
+  max-width: 300px;
+  word-break: break-all;
+}
+
+#g_title1 {
   overflow: hidden; // 영역 감추기
   text-overflow: ellipsis; // ...로 만들기
   white-space: nowrap; // 아래줄 내려가는 것 막기
   max-width: 400px;
 }
-#apply{
+#apply {
   display: flex;
   justify-content: center;
 }
@@ -74,12 +83,12 @@
   border-radius: 20px;
   height: 300px;
   background-color: white;
-  margin-left: 50px;
+  margin-left: 15px;
   margin-top: 50px;
   .Menu {
     margin-top: 30px;
     margin-left: 20px;
-    width: 200px;
+    width: 180px;
     flex-direction: column;
   }
 }

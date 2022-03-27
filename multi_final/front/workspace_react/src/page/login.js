@@ -19,10 +19,10 @@ function Login() {
     const handlechange = (e) => {
         setchecked(!checked);
       };
-
+      //입력되지 않은 값이 있을때 경고창이 뜨면서 다시 로그인화면으로 돌아오도록 설정
     const submitfail=()=>{
         alert('입력되지 않은 값이 있습니다.');
-        document.location.href = '/login'
+        window.location = '/login';
     }
     console.log(isemailnull,isPasswordnull);
     const submit=()=>{
@@ -46,15 +46,15 @@ function Login() {
             console.log('원래값풀기'+decryptedData );
             console.log(loginPassword);
          
-              if((decryptedData ===loginPassword)&&(checked===false)){
+              if((decryptedData ===loginPassword)&&(checked===false)){ //복호화 시킨 db비밀번호가 입력한 비밀번호와 같으면서 로그인유지가 체크안되었을때
                 sessionStorage.setItem("loginemail", m_email);
                 sessionStorage.setItem("loginPassword", response.data[0].m_passwd);//비밀번호
                 sessionStorage.setItem("m_name",loginm_name); //닉네임
                 sessionStorage.setItem("m_role",m_role);
                 
-                window.location.href = '/'
+                window.location = '/';
                  } 
-                else if((decryptedData ===loginPassword)&&(checked===true)){
+                else if((decryptedData ===loginPassword)&&(checked===true)){//복호화 시킨 db비밀번호가 입력한 비밀번호와 같으면서 로그인유지가 체크되었을때
                     localStorage.setItem("loginemail", m_email);
                     localStorage.setItem("loginPassword", response.data[0].m_passwd);//비밀번호
                     localStorage.setItem("m_name", loginm_name); //닉네임
@@ -64,12 +64,13 @@ function Login() {
                  else{
                   
                      alert('아이디나 비밀번호가 올바르지 않습니다');  
-                     document.location.href = '/login';
+                     window.location = '/login';
                    
                  }
          })
          .catch(error => {
             console.log(error);
+            window.location = '/login';
             alert('존재하지 않는 이메일입니다');  
          });
         

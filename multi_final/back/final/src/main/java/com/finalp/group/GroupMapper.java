@@ -44,7 +44,8 @@ public interface GroupMapper {
 	
 	//글쓰기  제목 소제목 카테고리 파일 내용 작성자
 
-	@Insert("INSERT INTO itp_group(g_name,g_title,g_subtitle,g_content,g_img,g_tag) values(#{g_name},#{g_title},#{g_subtitle},#{g_content},#{g_img},#{g_tag})")
+	@Insert("INSERT INTO itp_group(g_name,g_title,g_subtitle,g_content,g_img,g_tag) values(#{g_name},#{g_title},"
+			+ "#{g_subtitle},#{g_content},#{g_img},#{g_tag})")
 	int insertGroup(
 			@Param("g_name") String g_name,
 			@Param("g_title") String g_title,
@@ -56,7 +57,8 @@ public interface GroupMapper {
 			);
 	
 	//수정
-	@Update("UPDATE itp_group SET g_title = #{g_title}, g_subtitle=#{g_subtitle}, g_content= #{g_content},g_tag=#{g_tag} WHERE g_no= #{g_no}")
+	@Update("UPDATE itp_group SET g_title = #{g_title}, g_subtitle=#{g_subtitle}, g_content= #{g_content}"
+			+ ",g_tag=#{g_tag} WHERE g_no= #{g_no}")
 	int updateGroup(
 			@Param("g_no") int g_no,
 			@Param("g_title") String g_title,
@@ -65,10 +67,11 @@ public interface GroupMapper {
 			@Param("g_tag") String g_tag
 		);
 	
+	//삭제
 	@Delete("DELETE FROM itp_group WHERE g_no = #{g_no}")
 	int deleteGroup(@Param("g_no") int g_no);
 	
-	//삭제
+
 	
 	
 	

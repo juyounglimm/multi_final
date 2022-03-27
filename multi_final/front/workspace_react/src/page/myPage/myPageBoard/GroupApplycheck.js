@@ -13,18 +13,30 @@ function GroupApplycheck(props) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 const [a_auth,seta_auth]=useState('');
-const authcheck=()=>{
+const[m_name,setm_name]=useState('');
+useEffect(()=>{
+    if(sessionStorage.getItem('m_name')===null || localStorage.getItem('m_name')!==null){
+     setm_name(localStorage.getItem('m_name'));
+    }else if(sessionStorage.getItem('m_name')!==null ||localStorage.getItem('m_name')===null){
+      setm_name(sessionStorage.getItem('m_name'));
+     
+    }
+   
+  },[]);
 
+const authcheck=(a)=>{
+    console.log(a);
     seta_auth('승인');
     axios.put(`http://localhost:8085/update/authcheck/${g_no}`,null,{
         params:{
-          'a_auth':'승인'
+          'a_auth':'승인',
+          'a_no':a,
         
         }
       })
       .then(
-        seta_auth('승인'),
-        navigate('/communityGroup/')//성공시 목록으로 돌아가기
+        seta_auth('승인'), //승인버튼 클릭시 승인처리완료로 변경되도록 함
+        window.location=`/myPageBoard/${m_name}`//성공시 목록으로 돌아가기
        
       )
       
@@ -41,7 +53,7 @@ const authcheck=()=>{
           
           const response=await axios.get(`http://localhost:8085/group/apply/${g_no}`);
           setGroupapplydata(response.data);
-          
+     
         }catch(e){
           setError(e);
       }
@@ -85,9 +97,10 @@ if (!Groupapplydatas) return null;
                                 </td>
                                 <td>
                                     { Groupapplydata.a_auth!=='승인'?
-                                 <input type="button" value="승인체크" id="applybutton" onClick={authcheck}/>
+                                 <input type="button" value="승인체크" id="applybutton" onClick={()=>authcheck(Groupapplydata.a_no)}/>
                                     : '승인처리완료'
                                     }
+
                                 </td>
                             
                             </tr>

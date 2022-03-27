@@ -37,10 +37,9 @@ const GroupBoardDetail = () => {
   useEffect(()=>{
       const fetchGroup=async()=>{
           try {
-              //error 와 notice 를 초기화
+    
               setError(null);
               setGroupdata(null);
-              // loading 상태를 true
               setLoading(true);    
               const response=await axios.get(`http://localhost:8085/group/${no}`);
               console.log(response.data);
@@ -91,12 +90,22 @@ if (!Groupdatas) return null;
       <button className='groupDetailButton' value="삭제하기" onClick={()=>Delete(no)} > 삭제 </button>
       </>
       :
+      
       <>
       <button className='groupDetailButton' value="목록으로" onClick={BackToGroupBoard} > 목록 </button>
-      <button className='groupDetailButton' value="신청" onClick={gotoapply} > 신청 </button>
+     
       </>
      }
-        
+     
+     {
+        ((sessionStorage.getItem('m_name'))===null&&(localStorage.getItem('m_name'))=== null) ?
+        <>
+       </>
+       :
+       <>
+      <button className='groupDetailButton' value="신청" onClick={gotoapply} > 신청 </button>  
+       </>
+     }
       </div>
       <GroupReply/>
     </div>

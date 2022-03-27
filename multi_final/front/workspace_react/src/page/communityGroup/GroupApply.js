@@ -23,14 +23,11 @@ const GroupApply = () => {
     useEffect(()=>{
         const fetchGroup=async()=>{
             try {
-                //error 와 notice 를 초기화
-            
-                // loading 상태를 true
           
                 const response=await axios.get(`http://localhost:8085/group/${no}`);
                 console.log(response.data);
 
-                setg_nameorigin(response.data[0].g_name);
+                setg_nameorigin(response.data[0].g_name); //원글 작성자닉네임
              
             }catch(e){
            
@@ -46,6 +43,7 @@ const GroupApply = () => {
   
  
     useEffect(()=>{
+      //로그인 된 닉네임, 이메일 저장
         if(sessionStorage.getItem('m_name')===null || localStorage.getItem('m_name')!==null){
           setissession(false);setg_name(localStorage.getItem('m_name')); setg_email(localStorage.getItem('loginemail'));
         }else if(sessionStorage.getItem('m_name')!==null ||localStorage.getItem('m_name')===null){

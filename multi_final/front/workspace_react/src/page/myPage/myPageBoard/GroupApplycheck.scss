@@ -9,8 +9,14 @@
   border-radius: 20px;
 }
 #a_name1 {
-  width: 200px;
+  width: 100px;
   overflow: hidden; // 영역 감추기
   text-overflow: ellipsis; // ...로 만들기
   white-space: nowrap; // 아래줄 내려가는 것 막기
+}
+#a_email1 {
+  width: 200px;
+}
+#a_content1 {
+  width: 300px;
 }

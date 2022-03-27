@@ -30,7 +30,7 @@ const GroupReply = () => {
    
 
       
-      const handler_content=(e)=>{
+      const handler_content=(e)=>{ //입력한 댓글내용
         setrg_content(e.target.value);
         setContentCnt(e.target.value.length);
       }
@@ -63,7 +63,7 @@ const GroupReply = () => {
       }
 
       const submit=()=>{
-        if(rg_content!==''){
+        if(rg_content!==''){ //내용입력시에만 추가가 가능하도록설정
           axios.post(`http://localhost:8085/addGroupRep/${no}`,null,{
           params:{
             'rg_no':no,
@@ -110,8 +110,9 @@ const GroupReply = () => {
   
 },[no]);
 
+console.log(isLogin);
 
-      useEffect(()=>{
+      useEffect(()=>{ 
         if(sessionStorage.getItem('m_name')===null &&localStorage.getItem('m_name')===null){
           setIslogin(false);
         }else if(sessionStorage.getItem('m_name')==='manager' ||localStorage.getItem('m_name')==='manager'){
@@ -123,6 +124,7 @@ const GroupReply = () => {
 
       
       useEffect(()=>{
+        //댓글작성자 닉네임을 현재 로그인한 닉네임에서 가져오기
         if(sessionStorage.getItem('m_name')===null || localStorage.getItem('m_name')!==null){
           setissession(true);setrg_name(localStorage.getItem('m_name'));
         }else if(sessionStorage.getItem('m_name')!==null ||localStorage.getItem('m_name')!==null){
@@ -137,7 +139,7 @@ const GroupReply = () => {
   useEffect(()=>{
       const fetchCom=async()=>{
           try {
-              //error 와 notice 를 초기화
+     
               setError(null);
               setRepdata(null);
               // loading 상태를 true
@@ -166,11 +168,13 @@ if (!Repdatas) return null;
 
   return (
       <div id='replyAll'>
-         <p>댓글 {Grouprepdatas} <span id='counter' style={{float:'right'}}>{contentCnt}/300</span></p>
+        {/* 댓글 갯수 같이 출력 */}
+         <p>댓글 {Grouprepdatas}</p> 
         <div id='replyRegi'>
         {(isLogin)?
         <>
         <input type="text" onChange={(e)=>handler_content(e)}id="rg_content" name="rg_content" value={rg_content} maxLength={300} />
+        <span id='countergroup'>{contentCnt}/300</span>
         <button value="등록하기" onClick={()=>submit()}>
           등록하기
         </button>
@@ -180,6 +184,8 @@ if (!Repdatas) return null;
         }
         </div>
         <div id='replyBottom'>
+        {(isLogin)?
+        <>
         {Repdatas.map((Repdata,index) => (
           <Table>
             <tbody>
@@ -191,6 +197,7 @@ if (!Repdatas) return null;
                   <p>{Repdata.rg_name} | {Repdata.rg_date}</p>
                   {
             ((sessionStorage.getItem('m_name'))===Repdata.rg_name||(localStorage.getItem('m_name'))===Repdata.rg_name) ?
+                  // 해당 댓글 작성자만 삭제 수정버튼이 보이도록 설정
                   <div>
                   <button value="삭제" onClick={()=>Delete(Repdata.rg_rno)} >
                     삭제
@@ -207,6 +214,9 @@ if (!Repdatas) return null;
             </tbody>
           </Table>
         ))}
+      </>:
+      <><p>로그인후 확인가능합니다</p></>
+              }
       </div>
     </div>
   );

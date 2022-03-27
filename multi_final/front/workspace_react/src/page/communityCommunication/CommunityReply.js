@@ -163,11 +163,12 @@ if (!Repdatas) return null;
 
   return (
       <div id='replyAll'>
-            <p>댓글 {Comrepdatas} <span id='counter' style={{float:'right'}}>{contentCnt}/300</span></p>
+            <p>댓글 {Comrepdatas} </p>
         <div id='replyRegi'>
         {(isLogin)?
         <>
         <input type="text" onChange={(e)=>handler_content(e)}id="r_content" name="r_content" value={r_content} maxLength={300} />
+        <span id='countercom'>{contentCnt}/300</span>
         <button value="등록하기" onClick={()=>submit()}>
           등록하기
         </button>
@@ -177,6 +178,8 @@ if (!Repdatas) return null;
         }
         </div>
         <div id='replyBottom'>
+        {(isLogin)?
+        <>
         {Repdatas.map((Repdata,index) => (
           <Table>
             <tbody>
@@ -201,6 +204,9 @@ if (!Repdatas) return null;
             </tbody>
           </Table>
         ))}
+         </>:
+      <><p>로그인후 확인가능합니다</p></>
+              }
       </div>
     </div>
   );

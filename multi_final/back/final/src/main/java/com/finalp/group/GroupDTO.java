@@ -16,7 +16,8 @@ public class GroupDTO {
 	public GroupDTO() {
 		// TODO Auto-generated constructor stub
 	}
-	public GroupDTO(int g_no, String g_name, String g_title, String g_subtitle, String g_content, String g_img, String g_tag) {
+	public GroupDTO(int g_no, String g_name, String g_title, String g_subtitle, String g_content, String g_img, 
+			String g_tag) {
 		this.g_no=g_no;
 		this.g_name=g_name;
 		this.g_title=g_title;

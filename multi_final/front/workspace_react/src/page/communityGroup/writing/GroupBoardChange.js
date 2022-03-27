@@ -21,29 +21,26 @@ const GroupBoardChange= () => {
    const[g_content,setg_content]=useState('')
    const[g_tag,setg_tag]=useState('')
  
-   const handlen_title=(e)=>{
+   const handlen_title=(e)=>{//입력된 제목 내용
      setg_title(e.target.value)
    }
 
-   const handlen_subtitle=(e)=>{
+   const handlen_subtitle=(e)=>{//입력된 소제목 내용
      setg_subtitle(e.target.value)
      console.log(g_subtitle);
    }
 
-   const handlen_content=(e)=>{
+   const handlen_content=(e)=>{//입력된 글내용
      setg_content(e.target.value)
    }
 
-   const handlen_tag=(e)=>{
+   const handlen_tag=(e)=>{ //입력된 카테고리내용
     setg_tag(e.target.value)
-    console.log(g_tag)
+
   }
    const submit=()=>{
-     console.log(g_title)
-     console.log(g_content)
-     
-    
-     axios.put(`http://localhost:8085/updateGroup/${no}`,null,{
+        
+     axios.put(`http://115.85.181.164:8085/updateGroup/${no}`,null,{
        params:{
          'g_title':g_title,
          'g_subtitle':g_subtitle,
@@ -61,12 +58,11 @@ const GroupBoardChange= () => {
    useEffect(()=>{
     const fetchGroup=async()=>{
         try {
-            //error 와 notice 를 초기화
+            
             setError(null);
             setGroupdata(null);
-            // loading 상태를 true
             setLoading(true);    
-            const response=await axios.get(`http://localhost:8085/group/${no}`);
+            const response=await axios.get(`http://115.85.181.164:8085/group/${no}`);
             console.log(response.data);
             setGroupdata(response.data);
             setg_title(response.data[0].g_title)

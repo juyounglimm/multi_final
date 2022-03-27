@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { BsChevronRight, BsSearch } from "react-icons/bs";
 
 const GroupBorad = () => {
+
   const page=1;
   const[Groupdatas,setGroupdata]=useState([]); //전체데이터
   const [loading, setLoading] = useState(false);
@@ -14,25 +15,26 @@ const GroupBorad = () => {
   const[search,setsearch]=useState('');
   
   const[currentpage,setcurrentpage]=useState(1);
-  const itemsPerPage=6;
-  const pageNumberLimit=5;
+  const itemsPerPage=6; //6개씩 출력
+  const pageNumberLimit=5; //페이지는 5개씩설정
   const[maxpageNumberLimit,setmaxpageNumberLimit]=useState(5);
   const[minpageNumberLimit,setminpageNumberLimit]=useState(0);
   const [isLogin,setIslogin]=useState();
-  const [filterDatas,setFilterData]=useState(Groupdatas);
-const handleClickpage=(e)=>{
+  const [filterDatas,setFilterData]=useState(Groupdatas); //검색결과데이터
+  
+  const handleClickpage=(e)=>{    //클릭한 페이지
   setcurrentpage(Number(e.target.id))
-}
+  }
 
-const handlesearch=()=>{
+  const handlesearch=()=>{
   setsearch(title); //title이 입력한내용
-  console.log(search);
+  
   const newFilter=Groupdatas.filter((val)=>{
-    return val.g_title.includes(search);
+    return val.g_title.includes(search);  //검색창에 입력된 내용 포함한 내용을 newfilter에 저장
   
   });
 
-  if(search!==' '){
+  if(search!==' '){//검색데이터가 있으면 newfilter로 없으면 전체데이터로 페이징
   setFilterData(newFilter);
  
   }else{
@@ -43,22 +45,13 @@ const handlesearch=()=>{
 
 }
 
-
-console.log(Groupdatas.length);
-
   const pagenums=[];
   for(let i=1;i<=Math.ceil((filterDatas.length)/itemsPerPage);i++){
-    pagenums.push(i);
+    pagenums.push(i);  //총페이지개수
   }
-  console.log(pagenums);
-
   const indexOfLastItem=currentpage*itemsPerPage; //마지막 갯수
   const indexOfFirstItem=indexOfLastItem-itemsPerPage;
-
   const currentItems=filterDatas.slice(indexOfFirstItem,indexOfLastItem);
-  
-  console.log(currentItems);
-
   const renderPagenum=pagenums.map((number)=>{
     if(number<maxpageNumberLimit+1&&number>minpageNumberLimit){
     return(
@@ -93,7 +86,6 @@ console.log(Groupdatas.length);
      
           setError(null);
           
-          // loading 상태를 true
           setLoading(true); 
           
           const response=await axios.get(`http://localhost:8085/group/listAll`,null);
@@ -104,8 +96,7 @@ console.log(Groupdatas.length);
           setError(e);
       }
       setLoading(false);
-    
-  
+      
 };
 fetchGroup();
 
@@ -130,7 +121,7 @@ fetchGroup();
   }
 
   let pageIncrementBtn=null;
-  if(pagenums.length>maxpageNumberLimit){
+  if(pagenums.length>maxpageNumberLimit){ //최대페이지수보다 페이지갯수가 클때만 다음페이지로 넘어감 
     pageIncrementBtn=<li onClick={handlenextbtn}>&hellip;</li>
   }
 
@@ -175,12 +166,7 @@ if (!Groupdatas) return null;
             )}
           </div>
           <div id='groupSearch'>
-          {/* <select className="searchfilter" >
-         <option value="1" >제목</option>
-          <option value="2">내용</option>
-          <option value="3">작성자</option>
- 
-          </select> */}
+        
             <input 
               type="text"
               onChange={(e)=>settitle(e.target.value)} 

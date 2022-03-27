@@ -137,6 +137,13 @@
   width: 864px;
   height: 40px;
 }
+
+#countergroup{
+  float: right;
+  color: grey;
+  display: block;
+  margin-left: 5px;
+}
 // height 픽스 조절, 입력 글자가 늘어날때는 잘려나가게. 보이는 것만 안보이게. (생략 기능) 자바스크립트 코드로 몇 글자 이상 넘어가면 생략되게
 /*
  div {
